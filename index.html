@@ -1,846 +1,836 @@
- (cd "$(git rev-parse --show-toplevel)" && git apply --3way <<'EOF' 
-diff --git a/index.html b/index.html
-new file mode 100644
-index 0000000000000000000000000000000000000000..38166691bbbd4cfdc6e7c609efdb20338cae0320
---- /dev/null
-+++ b/index.html
-@@ -0,0 +1,836 @@
-+<!DOCTYPE html>
-+<html lang="fr">
-+<head>
-+  <meta charset="UTF-8">
-+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-+  <title>ProGain – Nutrafrik | Prendre du poids sainement</title>
-+  <style>
-+    :root {
-+      --green: #2D7A3F;
-+      --light-green: #4BA85F;
-+      --white: #FFFFFF;
-+      --light-gray: #F5F5F5;
-+      --accent-gold: #C9A048;
-+      --text-dark: #1f1f1f;
-+      --text-muted: #4a4a4a;
-+    }
-+
-+    * {
-+      box-sizing: border-box;
-+      margin: 0;
-+      padding: 0;
-+    }
-+
-+    body {
-+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
-+      color: var(--text-dark);
-+      background: var(--white);
-+      line-height: 1.6;
-+    }
-+
-+    a {
-+      color: inherit;
-+      text-decoration: none;
-+    }
-+
-+    img {
-+      max-width: 100%;
-+      display: block;
-+      border-radius: 12px;
-+    }
-+
-+    .container {
-+      width: min(1100px, 92vw);
-+      margin: 0 auto;
-+    }
-+
-+    .section {
-+      padding: 70px 0;
-+    }
-+
-+    .section-title {
-+      font-size: 2rem;
-+      margin-bottom: 18px;
-+      text-align: center;
-+    }
-+
-+    .section-subtitle {
-+      max-width: 760px;
-+      margin: 0 auto 26px;
-+      text-align: center;
-+      color: var(--text-muted);
-+    }
-+
-+    /* Top trust bar */
-+    .trust-bar {
-+      background: var(--green);
-+      color: var(--white);
-+      font-size: 0.95rem;
-+    }
-+
-+    .trust-items {
-+      display: grid;
-+      grid-template-columns: 1fr;
-+      gap: 10px;
-+      padding: 12px 0;
-+      text-align: center;
-+    }
-+
-+    .trust-items span {
-+      display: inline-flex;
-+      align-items: center;
-+      justify-content: center;
-+      gap: 6px;
-+      font-weight: 600;
-+    }
-+
-+    /* Hero */
-+    .hero {
-+      background: var(--light-gray);
-+      padding: 60px 0 70px;
-+    }
-+
-+    .hero-grid {
-+      display: grid;
-+      grid-template-columns: 1fr;
-+      gap: 30px;
-+      align-items: center;
-+    }
-+
-+    .hero-label {
-+      display: inline-block;
-+      background: rgba(45, 122, 63, 0.12);
-+      color: var(--green);
-+      padding: 6px 12px;
-+      border-radius: 999px;
-+      font-weight: 700;
-+      font-size: 0.9rem;
-+      margin-bottom: 14px;
-+    }
-+
-+    .hero-title {
-+      font-size: clamp(2rem, 5vw, 2.8rem);
-+      margin-bottom: 14px;
-+      line-height: 1.2;
-+    }
-+
-+    .hero-subtitle {
-+      color: var(--text-muted);
-+      margin-bottom: 16px;
-+      font-size: 1.05rem;
-+    }
-+
-+    .hero-list {
-+      list-style: none;
-+      margin-bottom: 22px;
-+      color: var(--text-dark);
-+    }
-+
-+    .hero-list li {
-+      padding: 8px 0;
-+      display: flex;
-+      gap: 10px;
-+      align-items: center;
-+    }
-+
-+    .hero-list li::before {
-+      content: "•";
-+      color: var(--green);
-+      font-size: 1.2rem;
-+    }
-+
-+    .btn-primary {
-+      display: inline-flex;
-+      align-items: center;
-+      justify-content: center;
-+      background: linear-gradient(135deg, var(--green), var(--light-green));
-+      color: var(--white);
-+      padding: 14px 22px;
-+      border-radius: 12px;
-+      font-weight: 700;
-+      border: none;
-+      cursor: pointer;
-+      box-shadow: 0 10px 25px rgba(45, 122, 63, 0.25);
-+      transition: transform 0.2s ease, box-shadow 0.2s ease;
-+    }
-+
-+    .btn-primary:hover {
-+      transform: translateY(-2px);
-+      box-shadow: 0 12px 28px rgba(45, 122, 63, 0.3);
-+    }
-+
-+    .hero-image {
-+      position: relative;
-+      background: linear-gradient(135deg, rgba(45, 122, 63, 0.08), rgba(75, 168, 95, 0.08));
-+      padding: 16px;
-+      border-radius: 18px;
-+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.08);
-+    }
-+
-+    .hero-image .placeholder {
-+      width: 100%;
-+      padding-top: 70%;
-+      background: url('https://images.unsplash.com/photo-1582719478145-b9e5a4b0c1c9?auto=format&fit=crop&w=900&q=80') center/cover no-repeat;
-+      border-radius: 12px;
-+      position: relative;
-+    }
-+
-+    /* Problem section */
-+    .problem {
-+      background: var(--white);
-+    }
-+
-+    .problem-list {
-+      list-style: none;
-+      display: grid;
-+      gap: 12px;
-+      max-width: 700px;
-+      margin: 0 auto;
-+    }
-+
-+    .problem-list li {
-+      background: var(--light-gray);
-+      padding: 12px 14px;
-+      border-radius: 12px;
-+      font-weight: 600;
-+    }
-+
-+    /* Solution section */
-+    .solution {
-+      background: var(--light-gray);
-+    }
-+
-+    .cards {
-+      display: grid;
-+      grid-template-columns: 1fr;
-+      gap: 18px;
-+      margin-top: 24px;
-+    }
-+
-+    .card {
-+      background: var(--white);
-+      padding: 20px;
-+      border-radius: 16px;
-+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
-+      border: 1px solid rgba(45, 122, 63, 0.1);
-+    }
-+
-+    .card h3 {
-+      margin-bottom: 10px;
-+      font-size: 1.15rem;
-+    }
-+
-+    .card p {
-+      color: var(--text-muted);
-+    }
-+
-+    /* How it works */
-+    .how-grid {
-+      display: grid;
-+      grid-template-columns: 1fr;
-+      gap: 24px;
-+      align-items: center;
-+    }
-+
-+    .pillars {
-+      list-style: none;
-+      display: grid;
-+      gap: 12px;
-+    }
-+
-+    .pillars li {
-+      background: var(--light-gray);
-+      padding: 14px;
-+      border-radius: 14px;
-+      border-left: 6px solid var(--green);
-+    }
-+
-+    .illustration-box {
-+      background: var(--white);
-+      padding: 18px;
-+      border-radius: 16px;
-+      text-align: center;
-+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
-+    }
-+
-+    /* For who */
-+    .for-who {
-+      background: var(--white);
-+    }
-+
-+    .two-columns {
-+      display: grid;
-+      grid-template-columns: 1fr;
-+      gap: 18px;
-+    }
-+
-+    .two-columns ul {
-+      list-style: none;
-+      background: var(--light-gray);
-+      padding: 16px;
-+      border-radius: 14px;
-+      display: grid;
-+      gap: 10px;
-+    }
-+
-+    .warning-box {
-+      background: rgba(201, 160, 72, 0.12);
-+      border: 1px solid rgba(201, 160, 72, 0.4);
-+      padding: 14px;
-+      border-radius: 14px;
-+      color: #6b540e;
-+      margin-top: 14px;
-+      font-size: 0.95rem;
-+    }
-+
-+    /* Testimonials */
-+    .testimonials {
-+      background: var(--white);
-+    }
-+
-+    .testimonial-cards {
-+      display: grid;
-+      grid-template-columns: 1fr;
-+      gap: 16px;
-+      margin: 20px 0;
-+    }
-+
-+    .testimonial {
-+      background: var(--light-gray);
-+      padding: 16px;
-+      border-radius: 14px;
-+      display: grid;
-+      grid-template-columns: auto 1fr;
-+      gap: 12px;
-+      align-items: center;
-+    }
-+
-+    .avatar {
-+      width: 56px;
-+      height: 56px;
-+      border-radius: 50%;
-+      background: linear-gradient(135deg, var(--green), var(--light-green));
-+      display: grid;
-+      place-items: center;
-+      color: var(--white);
-+      font-weight: 700;
-+    }
-+
-+    .before-after {
-+      display: grid;
-+      grid-template-columns: 1fr;
-+      gap: 14px;
-+      margin-top: 16px;
-+    }
-+
-+    .before-after .ba-box {
-+      background: var(--light-gray);
-+      padding: 14px;
-+      border-radius: 14px;
-+      text-align: center;
-+    }
-+
-+    .before-after .placeholder {
-+      width: 100%;
-+      padding-top: 60%;
-+      background: linear-gradient(135deg, rgba(45,122,63,0.15), rgba(75,168,95,0.15));
-+      border-radius: 12px;
-+      margin-bottom: 8px;
-+    }
-+
-+    /* Usage */
-+    .usage {
-+      background: var(--light-gray);
-+    }
-+
-+    .usage-steps {
-+      background: var(--white);
-+      padding: 18px;
-+      border-radius: 16px;
-+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.06);
-+      display: grid;
-+      gap: 10px;
-+      margin-top: 14px;
-+    }
-+
-+    /* Pricing */
-+    .pricing {
-+      background: var(--white);
-+    }
-+
-+    .pricing-cards {
-+      display: grid;
-+      grid-template-columns: 1fr;
-+      gap: 16px;
-+      margin-top: 20px;
-+    }
-+
-+    .pricing-card {
-+      background: var(--light-gray);
-+      border-radius: 16px;
-+      padding: 18px;
-+      border: 1px solid rgba(45, 122, 63, 0.1);
-+      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.05);
-+      position: relative;
-+    }
-+
-+    .badge {
-+      position: absolute;
-+      top: 12px;
-+      right: 12px;
-+      background: var(--accent-gold);
-+      color: var(--white);
-+      padding: 6px 10px;
-+      border-radius: 999px;
-+      font-weight: 700;
-+      font-size: 0.85rem;
-+    }
-+
-+    .price {
-+      font-size: 1.4rem;
-+      font-weight: 800;
-+      margin: 12px 0 6px;
-+    }
-+
-+    .old-price {
-+      text-decoration: line-through;
-+      color: var(--text-muted);
-+      font-size: 0.95rem;
-+    }
-+
-+    .reassurance {
-+      display: grid;
-+      grid-template-columns: 1fr;
-+      gap: 10px;
-+      text-align: center;
-+      margin-top: 18px;
-+      color: var(--text-muted);
-+    }
-+
-+    .reassurance span {
-+      display: inline-flex;
-+      align-items: center;
-+      justify-content: center;
-+      gap: 6px;
-+    }
-+
-+    /* FAQ */
-+    .faq {
-+      background: var(--light-gray);
-+    }
-+
-+    details {
-+      background: var(--white);
-+      border-radius: 14px;
-+      padding: 12px 16px;
-+      margin-bottom: 10px;
-+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.05);
-+      border: 1px solid rgba(45, 122, 63, 0.1);
-+    }
-+
-+    summary {
-+      cursor: pointer;
-+      font-weight: 700;
-+      display: flex;
-+      align-items: center;
-+      justify-content: space-between;
-+      list-style: none;
-+    }
-+
-+    summary::-webkit-details-marker {
-+      display: none;
-+    }
-+
-+    /* Form */
-+    .order-form-section {
-+      background: var(--white);
-+    }
-+
-+    .form-card {
-+      background: var(--light-gray);
-+      padding: 22px;
-+      border-radius: 18px;
-+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.07);
-+      border: 1px solid rgba(45, 122, 63, 0.1);
-+      max-width: 760px;
-+      margin: 0 auto;
-+    }
-+
-+    form {
-+      display: grid;
-+      gap: 12px;
-+    }
-+
-+    label {
-+      font-weight: 700;
-+      margin-bottom: 4px;
-+      display: block;
-+    }
-+
-+    input, select {
-+      width: 100%;
-+      padding: 12px;
-+      border-radius: 10px;
-+      border: 1px solid #dcdcdc;
-+      font-size: 1rem;
-+      background: var(--white);
-+    }
-+
-+    input:focus, select:focus {
-+      outline: 2px solid rgba(45, 122, 63, 0.35);
-+      border-color: rgba(45, 122, 63, 0.35);
-+    }
-+
-+    .confidential {
-+      font-size: 0.9rem;
-+      color: var(--text-muted);
-+      margin-top: 6px;
-+      text-align: center;
-+    }
-+
-+    /* Footer */
-+    footer {
-+      background: var(--green);
-+      color: var(--white);
-+      padding: 30px 0;
-+    }
-+
-+    footer .footer-content {
-+      display: grid;
-+      grid-template-columns: 1fr;
-+      gap: 10px;
-+      text-align: center;
-+      font-size: 0.95rem;
-+    }
-+
-+    footer a {
-+      color: var(--white);
-+      text-decoration: underline;
-+      font-weight: 600;
-+    }
-+
-+    /* Responsive */
-+    @media (min-width: 768px) {
-+      .trust-items {
-+        grid-template-columns: repeat(3, 1fr);
-+      }
-+
-+      .hero-grid {
-+        grid-template-columns: repeat(2, 1fr);
-+      }
-+
-+      .cards, .testimonial-cards, .pricing-cards {
-+        grid-template-columns: repeat(3, 1fr);
-+      }
-+
-+      .how-grid {
-+        grid-template-columns: 1.1fr 0.9fr;
-+      }
-+
-+      .two-columns {
-+        grid-template-columns: repeat(2, 1fr);
-+      }
-+
-+      .reassurance {
-+        grid-template-columns: repeat(3, 1fr);
-+      }
-+
-+      .before-after {
-+        grid-template-columns: repeat(2, 1fr);
-+      }
-+    }
-+  </style>
-+</head>
-+<body>
-+  <!-- Barre supérieure de confiance -->
-+  <div class="trust-bar">
-+    <div class="container trust-items">
-+      <span>✅ Livraison gratuite – Paiement à la livraison</span>
-+      <span>🌍 Livraison dans plusieurs pays d’Afrique</span>
-+      <span>🌿 Formule 100% naturelle</span>
-+    </div>
-+  </div>
-+
-+  <!-- Section Hero -->
-+  <section class="hero" id="hero">
-+    <div class="container hero-grid">
-+      <div class="hero-text">
-+        <span class="hero-label">Complément alimentaire pour prise de poids</span>
-+        <h1 class="hero-title">Marre d’être trop maigre ?</h1>
-+        <p class="hero-subtitle">ProGain Nutrafrik t’aide à prendre du poids de manière plus équilibrée, grâce à une formule naturelle à base de plantes et nutriments essentiels.</p>
-+        <ul class="hero-list">
-+          <li>Stimule l’appétit naturellement</li>
-+          <li>Aide à la prise de masse plus facilement</li>
-+          <li>Améliore énergie et récupération</li>
-+        </ul>
-+        <a class="btn-primary" href="#commande">Je veux prendre du poids sainement</a>
-+      </div>
-+      <div class="hero-image">
-+        <div class="placeholder" aria-label="Homme africain tenant ProGain Nutrafrik dans une cuisine moderne"></div>
-+      </div>
-+    </div>
-+  </section>
-+
-+  <!-- Section Problème -->
-+  <section class="section problem" id="probleme">
-+    <div class="container">
-+      <h2 class="section-title">Tu manges… mais tu ne prends pas un gramme ?</h2>
-+      <p class="section-subtitle">Si tu te reconnais, ce n’est pas forcément ta faute : ton métabolisme a peut-être besoin d’un coup de pouce.</p>
-+      <ul class="problem-list">
-+        <li>On te dit souvent « tu es trop maigre »</li>
-+        <li>Tu as essayé de manger plus, sans résultat</li>
-+        <li>Tu te sens fatigué(e), sans énergie</li>
-+        <li>Tu n’oses pas t’afficher en t-shirt ou à la salle</li>
-+      </ul>
-+    </div>
-+  </section>
-+
-+  <!-- Section Solution -->
-+  <section class="section solution" id="solution">
-+    <div class="container">
-+      <h2 class="section-title">ProGain Nutrafrik – une aide pour les corps qui ont du mal à grossir</h2>
-+      <p class="section-subtitle">ProGain est un complément alimentaire à base d’extraits de plantes et de nutriments sélectionnés pour t’aider à prendre du poids plus facilement : appétit, assimilation, énergie et récupération.</p>
-+      <div class="cards">
-+        <div class="card">
-+          <h3>Appétit & digestion</h3>
-+          <p>Conçu pour soutenir l’envie de manger et une meilleure assimilation des nutriments.</p>
-+        </div>
-+        <div class="card">
-+          <h3>Masse & énergie</h3>
-+          <p>Aide ton corps à mieux utiliser ce que tu manges pour la masse et la vitalité.</p>
-+        </div>
-+        <div class="card">
-+          <h3>Formule naturelle</h3>
-+          <p>Inspirée des plantes et savoirs africains, sans excès ni promesses irréalistes.</p>
-+        </div>
-+      </div>
-+    </div>
-+  </section>
-+
-+  <!-- Section Comment ça marche -->
-+  <section class="section" id="comment">
-+    <div class="container how-grid">
-+      <div>
-+        <h2 class="section-title">Comment ProGain agit dans ton quotidien</h2>
-+        <ul class="pillars">
-+          <li><strong>Pilier 1 : Vitalité</strong> – Aide à soutenir l’énergie physique et mentale.</li>
-+          <li><strong>Pilier 2 : Assimilation</strong> – T’accompagne pour mieux profiter des repas.</li>
-+          <li><strong>Pilier 3 : Soutien global</strong> – Participe au bien-être général (digestion, récupération, confort).</li>
-+        </ul>
-+      </div>
-+      <div class="illustration-box">
-+        <img src="https://images.unsplash.com/photo-1468245856972-a0333f3f8293?auto=format&fit=crop&w=600&q=80" alt="Icônes de plantes et nutriments" />
-+        <p style="color: var(--text-muted); margin-top: 10px;">Une approche inspirée des plantes, facile à intégrer à ton quotidien.</p>
-+      </div>
-+    </div>
-+  </section>
-+
-+  <!-- Section Pour qui -->
-+  <section class="section for-who" id="pour-qui">
-+    <div class="container">
-+      <h2 class="section-title">ProGain est fait pour toi si…</h2>
-+      <div class="two-columns">
-+        <ul>
-+          <li>Tu es naturellement très mince ou en sous-poids</li>
-+          <li>Tu veux prendre du poids sans te gaver de junk food</li>
-+          <li>Tu vas à la salle et tu veux soutenir ta prise de masse</li>
-+          <li>Tu préfères une solution à base de plantes</li>
-+        </ul>
-+        <div>
-+          <div class="warning-box">
-+            <strong>ProGain n’est pas pour toi si…</strong>
-+            <ul style="list-style: none; margin-top: 10px; display: grid; gap: 6px;">
-+              <li>Tu souffres d’une maladie grave (cardiaque, rénale, etc.)</li>
-+              <li>Tu as une hypertension non contrôlée</li>
-+              <li>Tu refuses de demander l’avis de ton médecin en cas de doute</li>
-+            </ul>
-+          </div>
-+          <p style="margin-top: 12px; color: var(--text-muted);">En cas de traitement ou pathologie, demande toujours l’avis de ton médecin avant de prendre un complément.</p>
-+        </div>
-+      </div>
-+    </div>
-+  </section>
-+
-+  <!-- Section Témoignages -->
-+  <section class="section testimonials" id="temoignages">
-+    <div class="container">
-+      <h2 class="section-title">Ils ont décidé d’arrêter d’être trop maigres</h2>
-+      <div class="testimonial-cards">
-+        <div class="testimonial">
-+          <div class="avatar">A</div>
-+          <div>
-+            <strong>Aïcha, 27 ans</strong>
-+            <p>« En combinant ProGain avec une meilleure alimentation, j’ai enfin commencé à prendre du poids sans me sentir lourd. »</p>
-+          </div>
-+        </div>
-+        <div class="testimonial">
-+          <div class="avatar">M</div>
-+          <div>
-+            <strong>Michael, 32 ans</strong>
-+            <p>« J’ai plus d’appétit et de l’énergie pour mes séances. Les résultats sont visibles sur mes bras et mes épaules. »</p>
-+          </div>
-+        </div>
-+        <div class="testimonial">
-+          <div class="avatar">S</div>
-+          <div>
-+            <strong>Sarah, 24 ans</strong>
-+            <p>« Je voulais un produit naturel et simple. Après quelques semaines, je me sens plus en forme et j’ai pris du volume. »</p>
-+          </div>
-+        </div>
-+      </div>
-+      <div class="before-after">
-+        <div class="ba-box">
-+          <div class="placeholder"></div>
-+          <p><strong>Avant</strong></p>
-+        </div>
-+        <div class="ba-box">
-+          <div class="placeholder"></div>
-+          <p><strong>Après</strong></p>
-+        </div>
-+      </div>
-+      <p style="text-align: center; margin-top: 12px; color: var(--text-muted);">Résultats donnés à titre d’exemple. Chaque corps est différent.</p>
-+    </div>
-+  </section>
-+
-+  <!-- Section Utilisation -->
-+  <section class="section usage" id="utilisation">
-+    <div class="container">
-+      <h2 class="section-title">Comment utiliser ProGain au quotidien ?</h2>
-+      <div class="usage-steps">
-+        <div style="display: flex; gap: 12px; align-items: center;">
-+          <span style="font-size: 1.8rem;">💊</span>
-+          <div>
-+            <p><strong>1 capsule le matin après le petit-déjeuner</strong></p>
-+            <p class="section-subtitle" style="margin: 6px 0 0; text-align: left;">Toujours accompagner d’un grand verre d’eau.</p>
-+          </div>
-+        </div>
-+        <div style="display: flex; gap: 12px; align-items: center;">
-+          <span style="font-size: 1.8rem;">💊</span>
-+          <div>
-+            <p><strong>1 capsule le soir après le dîner</strong></p>
-+            <p class="section-subtitle" style="margin: 6px 0 0; text-align: left;">Soutient la récupération nocturne.</p>
-+          </div>
-+        </div>
-+        <p style="color: var(--text-muted);">Ne pas dépasser la dose recommandée. Tenir hors de portée des enfants. Un complément alimentaire ne remplace pas une alimentation variée ni un traitement médical.</p>
-+      </div>
-+    </div>
-+  </section>
-+
-+  <!-- Section Offres -->
-+  <section class="section pricing" id="offres">
-+    <div class="container">
-+      <h2 class="section-title">Choisis ton pack ProGain Nutrafrik</h2>
-+      <div class="pricing-cards">
-+        <div class="pricing-card">
-+          <h3>Pack Découverte – 1 flacon</h3>
-+          <p class="section-subtitle" style="text-align: left;">Idéal pour tester ProGain et commencer à voir les premières évolutions.</p>
-+          <p class="old-price">39€</p>
-+          <p class="price">29€</p>
-+          <a class="btn-primary" href="#commande">Je choisis ce pack</a>
-+        </div>
-+        <div class="pricing-card">
-+          <span class="badge">Le plus choisi</span>
-+          <h3>Pack Résultats – 2 flacons</h3>
-+          <p class="section-subtitle" style="text-align: left;">Permet un suivi sur plusieurs semaines pour des résultats plus visibles.</p>
-+          <p class="old-price">68€</p>
-+          <p class="price">54€</p>
-+          <a class="btn-primary" href="#commande">Je choisis ce pack</a>
-+        </div>
-+        <div class="pricing-card">
-+          <h3>Pack Transformation – 3 flacons</h3>
-+          <p class="section-subtitle" style="text-align: left;">Recommandé pour un accompagnement complet dans le temps.</p>
-+          <p class="old-price">99€</p>
-+          <p class="price">75€</p>
-+          <a class="btn-primary" href="#commande">Je choisis ce pack</a>
-+        </div>
-+      </div>
-+      <div class="reassurance">
-+        <span>💳 Paiement à la livraison</span>
-+        <span>💬 Service client WhatsApp</span>
-+        <span>⚡ Livraison rapide</span>
-+      </div>
-+    </div>
-+  </section>
-+
-+  <!-- Section FAQ -->
-+  <section class="section faq" id="faq">
-+    <div class="container">
-+      <h2 class="section-title">Questions fréquentes</h2>
-+      <details>
-+        <summary>En combien de temps je verrai des résultats ?</summary>
-+        <p style="margin-top: 10px; color: var(--text-muted);">Cela dépend de ton alimentation, de ton activité physique et de ton métabolisme. Beaucoup observent des changements progressifs sur plusieurs semaines.</p>
-+      </details>
-+      <details>
-+        <summary>Est-ce que ProGain est pour les femmes aussi ?</summary>
-+        <p style="margin-top: 10px; color: var(--text-muted);">Oui, ProGain convient aux hommes et aux femmes, en respectant les précautions d’usage.</p>
-+      </details>
-+      <details>
-+        <summary>Est-ce que c’est un médicament ?</summary>
-+        <p style="margin-top: 10px; color: var(--text-muted);">Non, ProGain est un complément alimentaire destiné à accompagner ton alimentation.</p>
-+      </details>
-+      <details>
-+        <summary>Y a-t-il des effets secondaires ?</summary>
-+        <p style="margin-top: 10px; color: var(--text-muted);">Chaque personne est différente. Respecte la posologie et consulte un médecin en cas de doute ou de réaction inattendue.</p>
-+      </details>
-+      <details>
-+        <summary>Comment je commande si je n’ai pas de carte bancaire ?</summary>
-+        <p style="margin-top: 10px; color: var(--text-muted);">Pas de souci : nous proposons le paiement à la livraison après confirmation par téléphone.</p>
-+      </details>
-+    </div>
-+  </section>
-+
-+  <!-- Section Formulaire -->
-+  <section class="section order-form-section" id="commande">
-+    <div class="container">
-+      <h2 class="section-title">Remplis ce formulaire, on te rappelle pour confirmer ta commande</h2>
-+      <p class="section-subtitle">Remplis les informations ci-dessous. Notre équipe te contactera par téléphone ou WhatsApp pour confirmer ta commande et la livraison.</p>
-+      <div class="form-card">
-+        <form action="#" method="post">
-+          <div>
-+            <label for="nom">Nom complet</label>
-+            <input type="text" id="nom" name="nom" placeholder="Ex : Jean K." required>
-+          </div>
-+          <div>
-+            <label for="tel">Téléphone</label>
-+            <input type="tel" id="tel" name="tel" placeholder="Ex : +225..." required>
-+          </div>
-+          <div>
-+            <label for="pays">Pays</label>
-+            <input type="text" id="pays" name="pays" placeholder="Ex : Côte d’Ivoire" required>
-+          </div>
-+          <div>
-+            <label for="ville">Ville</label>
-+            <input type="text" id="ville" name="ville" placeholder="Ex : Abidjan" required>
-+          </div>
-+          <div>
-+            <label for="quartier">Quartier / commune</label>
-+            <input type="text" id="quartier" name="quartier" placeholder="Ex : Cocody" required>
-+          </div>
-+          <div>
-+            <label for="pack">Pack choisi</label>
-+            <select id="pack" name="pack" required>
-+              <option value="1 flacon">1 flacon</option>
-+              <option value="2 flacons">2 flacons</option>
-+              <option value="3 flacons">3 flacons</option>
-+            </select>
-+          </div>
-+          <button type="submit" class="btn-primary" style="width: 100%;">Oui, je veux commencer ProGain</button>
-+          <p class="confidential">Tes informations restent confidentielles. Nous ne les partageons pas avec des tiers.</p>
-+        </form>
-+      </div>
-+    </div>
-+  </section>
-+
-+  <!-- Footer -->
-+  <footer>
-+    <div class="container footer-content">
-+      <strong>ProGain – Nutrafrik</strong>
-+      <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
-+        <a href="#">Mentions légales</a>
-+        <a href="#">Politique de confidentialité</a>
-+      </div>
-+      <p style="color: rgba(255,255,255,0.85);">ProGain est un complément alimentaire. Il ne remplace pas un traitement médical ni l’avis d’un professionnel de santé.</p>
-+    </div>
-+  </footer>
-+</body>
-+</html>
- 
-EOF
-)
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ProGain – Nutrafrik | Prendre du poids sainement</title>
+  <style>
+    :root {
+      --green: #2D7A3F;
+      --light-green: #4BA85F;
+      --white: #FFFFFF;
+      --light-gray: #F5F5F5;
+      --accent-gold: #C9A048;
+      --text-dark: #1f1f1f;
+      --text-muted: #4a4a4a;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      color: var(--text-dark);
+      background: var(--white);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+      border-radius: 12px;
+    }
+
+    .container {
+      width: min(1100px, 92vw);
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 70px 0;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 18px;
+      text-align: center;
+    }
+
+    .section-subtitle {
+      max-width: 760px;
+      margin: 0 auto 26px;
+      text-align: center;
+      color: var(--text-muted);
+    }
+
+    /* Top trust bar */
+    .trust-bar {
+      background: var(--green);
+      color: var(--white);
+      font-size: 0.95rem;
+    }
+
+    .trust-items {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      padding: 12px 0;
+      text-align: center;
+    }
+
+    .trust-items span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-weight: 600;
+    }
+
+    /* Hero */
+    .hero {
+      background: var(--light-gray);
+      padding: 60px 0 70px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .hero-label {
+      display: inline-block;
+      background: rgba(45, 122, 63, 0.12);
+      color: var(--green);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: 14px;
+    }
+
+    .hero-title {
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      margin-bottom: 14px;
+      line-height: 1.2;
+    }
+
+    .hero-subtitle {
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      font-size: 1.05rem;
+    }
+
+    .hero-list {
+      list-style: none;
+      margin-bottom: 22px;
+      color: var(--text-dark);
+    }
+
+    .hero-list li {
+      padding: 8px 0;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .hero-list li::before {
+      content: "•";
+      color: var(--green);
+      font-size: 1.2rem;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--green), var(--light-green));
+      color: var(--white);
+      padding: 14px 22px;
+      border-radius: 12px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(45, 122, 63, 0.25);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(45, 122, 63, 0.3);
+    }
+
+    .hero-image {
+      position: relative;
+      background: linear-gradient(135deg, rgba(45, 122, 63, 0.08), rgba(75, 168, 95, 0.08));
+      padding: 16px;
+      border-radius: 18px;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.08);
+    }
+
+    .hero-image .placeholder {
+      width: 100%;
+      padding-top: 70%;
+      background: url('https://images.unsplash.com/photo-1582719478145-b9e5a4b0c1c9?auto=format&fit=crop&w=900&q=80') center/cover no-repeat;
+      border-radius: 12px;
+      position: relative;
+    }
+
+    /* Problem section */
+    .problem {
+      background: var(--white);
+    }
+
+    .problem-list {
+      list-style: none;
+      display: grid;
+      gap: 12px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .problem-list li {
+      background: var(--light-gray);
+      padding: 12px 14px;
+      border-radius: 12px;
+      font-weight: 600;
+    }
+
+    /* Solution section */
+    .solution {
+      background: var(--light-gray);
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      margin-top: 24px;
+    }
+
+    .card {
+      background: var(--white);
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+      border: 1px solid rgba(45, 122, 63, 0.1);
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      font-size: 1.15rem;
+    }
+
+    .card p {
+      color: var(--text-muted);
+    }
+
+    /* How it works */
+    .how-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .pillars {
+      list-style: none;
+      display: grid;
+      gap: 12px;
+    }
+
+    .pillars li {
+      background: var(--light-gray);
+      padding: 14px;
+      border-radius: 14px;
+      border-left: 6px solid var(--green);
+    }
+
+    .illustration-box {
+      background: var(--white);
+      padding: 18px;
+      border-radius: 16px;
+      text-align: center;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+    }
+
+    /* For who */
+    .for-who {
+      background: var(--white);
+    }
+
+    .two-columns {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    .two-columns ul {
+      list-style: none;
+      background: var(--light-gray);
+      padding: 16px;
+      border-radius: 14px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .warning-box {
+      background: rgba(201, 160, 72, 0.12);
+      border: 1px solid rgba(201, 160, 72, 0.4);
+      padding: 14px;
+      border-radius: 14px;
+      color: #6b540e;
+      margin-top: 14px;
+      font-size: 0.95rem;
+    }
+
+    /* Testimonials */
+    .testimonials {
+      background: var(--white);
+    }
+
+    .testimonial-cards {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin: 20px 0;
+    }
+
+    .testimonial {
+      background: var(--light-gray);
+      padding: 16px;
+      border-radius: 14px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--green), var(--light-green));
+      display: grid;
+      place-items: center;
+      color: var(--white);
+      font-weight: 700;
+    }
+
+    .before-after {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .before-after .ba-box {
+      background: var(--light-gray);
+      padding: 14px;
+      border-radius: 14px;
+      text-align: center;
+    }
+
+    .before-after .placeholder {
+      width: 100%;
+      padding-top: 60%;
+      background: linear-gradient(135deg, rgba(45,122,63,0.15), rgba(75,168,95,0.15));
+      border-radius: 12px;
+      margin-bottom: 8px;
+    }
+
+    /* Usage */
+    .usage {
+      background: var(--light-gray);
+    }
+
+    .usage-steps {
+      background: var(--white);
+      padding: 18px;
+      border-radius: 16px;
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.06);
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    /* Pricing */
+    .pricing {
+      background: var(--white);
+    }
+
+    .pricing-cards {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .pricing-card {
+      background: var(--light-gray);
+      border-radius: 16px;
+      padding: 18px;
+      border: 1px solid rgba(45, 122, 63, 0.1);
+      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.05);
+      position: relative;
+    }
+
+    .badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: var(--accent-gold);
+      color: var(--white);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    .price {
+      font-size: 1.4rem;
+      font-weight: 800;
+      margin: 12px 0 6px;
+    }
+
+    .old-price {
+      text-decoration: line-through;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .reassurance {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      text-align: center;
+      margin-top: 18px;
+      color: var(--text-muted);
+    }
+
+    .reassurance span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    /* FAQ */
+    .faq {
+      background: var(--light-gray);
+    }
+
+    details {
+      background: var(--white);
+      border-radius: 14px;
+      padding: 12px 16px;
+      margin-bottom: 10px;
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.05);
+      border: 1px solid rgba(45, 122, 63, 0.1);
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      list-style: none;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    /* Form */
+    .order-form-section {
+      background: var(--white);
+    }
+
+    .form-card {
+      background: var(--light-gray);
+      padding: 22px;
+      border-radius: 18px;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.07);
+      border: 1px solid rgba(45, 122, 63, 0.1);
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    form {
+      display: grid;
+      gap: 12px;
+    }
+
+    label {
+      font-weight: 700;
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #dcdcdc;
+      font-size: 1rem;
+      background: var(--white);
+    }
+
+    input:focus, select:focus {
+      outline: 2px solid rgba(45, 122, 63, 0.35);
+      border-color: rgba(45, 122, 63, 0.35);
+    }
+
+    .confidential {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+      text-align: center;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--green);
+      color: var(--white);
+      padding: 30px 0;
+    }
+
+    footer .footer-content {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      text-align: center;
+      font-size: 0.95rem;
+    }
+
+    footer a {
+      color: var(--white);
+      text-decoration: underline;
+      font-weight: 600;
+    }
+
+    /* Responsive */
+    @media (min-width: 768px) {
+      .trust-items {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .hero-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .cards, .testimonial-cards, .pricing-cards {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .how-grid {
+        grid-template-columns: 1.1fr 0.9fr;
+      }
+
+      .two-columns {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .reassurance {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .before-after {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Barre supérieure de confiance -->
+  <div class="trust-bar">
+    <div class="container trust-items">
+      <span>✅ Livraison gratuite – Paiement à la livraison</span>
+      <span>🌍 Livraison dans plusieurs pays d’Afrique</span>
+      <span>🌿 Formule 100% naturelle</span>
+    </div>
+  </div>
+
+  <!-- Section Hero -->
+  <section class="hero" id="hero">
+    <div class="container hero-grid">
+      <div class="hero-text">
+        <span class="hero-label">Complément alimentaire pour prise de poids</span>
+        <h1 class="hero-title">Marre d’être trop maigre ?</h1>
+        <p class="hero-subtitle">ProGain Nutrafrik t’aide à prendre du poids de manière plus équilibrée, grâce à une formule naturelle à base de plantes et nutriments essentiels.</p>
+        <ul class="hero-list">
+          <li>Stimule l’appétit naturellement</li>
+          <li>Aide à la prise de masse plus facilement</li>
+          <li>Améliore énergie et récupération</li>
+        </ul>
+        <a class="btn-primary" href="#commande">Je veux prendre du poids sainement</a>
+      </div>
+      <div class="hero-image">
+        <div class="placeholder" aria-label="Homme africain tenant ProGain Nutrafrik dans une cuisine moderne"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Problème -->
+  <section class="section problem" id="probleme">
+    <div class="container">
+      <h2 class="section-title">Tu manges… mais tu ne prends pas un gramme ?</h2>
+      <p class="section-subtitle">Si tu te reconnais, ce n’est pas forcément ta faute : ton métabolisme a peut-être besoin d’un coup de pouce.</p>
+      <ul class="problem-list">
+        <li>On te dit souvent « tu es trop maigre »</li>
+        <li>Tu as essayé de manger plus, sans résultat</li>
+        <li>Tu te sens fatigué(e), sans énergie</li>
+        <li>Tu n’oses pas t’afficher en t-shirt ou à la salle</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Section Solution -->
+  <section class="section solution" id="solution">
+    <div class="container">
+      <h2 class="section-title">ProGain Nutrafrik – une aide pour les corps qui ont du mal à grossir</h2>
+      <p class="section-subtitle">ProGain est un complément alimentaire à base d’extraits de plantes et de nutriments sélectionnés pour t’aider à prendre du poids plus facilement : appétit, assimilation, énergie et récupération.</p>
+      <div class="cards">
+        <div class="card">
+          <h3>Appétit & digestion</h3>
+          <p>Conçu pour soutenir l’envie de manger et une meilleure assimilation des nutriments.</p>
+        </div>
+        <div class="card">
+          <h3>Masse & énergie</h3>
+          <p>Aide ton corps à mieux utiliser ce que tu manges pour la masse et la vitalité.</p>
+        </div>
+        <div class="card">
+          <h3>Formule naturelle</h3>
+          <p>Inspirée des plantes et savoirs africains, sans excès ni promesses irréalistes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Comment ça marche -->
+  <section class="section" id="comment">
+    <div class="container how-grid">
+      <div>
+        <h2 class="section-title">Comment ProGain agit dans ton quotidien</h2>
+        <ul class="pillars">
+          <li><strong>Pilier 1 : Vitalité</strong> – Aide à soutenir l’énergie physique et mentale.</li>
+          <li><strong>Pilier 2 : Assimilation</strong> – T’accompagne pour mieux profiter des repas.</li>
+          <li><strong>Pilier 3 : Soutien global</strong> – Participe au bien-être général (digestion, récupération, confort).</li>
+        </ul>
+      </div>
+      <div class="illustration-box">
+        <img src="https://images.unsplash.com/photo-1468245856972-a0333f3f8293?auto=format&fit=crop&w=600&q=80" alt="Icônes de plantes et nutriments" />
+        <p style="color: var(--text-muted); margin-top: 10px;">Une approche inspirée des plantes, facile à intégrer à ton quotidien.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Pour qui -->
+  <section class="section for-who" id="pour-qui">
+    <div class="container">
+      <h2 class="section-title">ProGain est fait pour toi si…</h2>
+      <div class="two-columns">
+        <ul>
+          <li>Tu es naturellement très mince ou en sous-poids</li>
+          <li>Tu veux prendre du poids sans te gaver de junk food</li>
+          <li>Tu vas à la salle et tu veux soutenir ta prise de masse</li>
+          <li>Tu préfères une solution à base de plantes</li>
+        </ul>
+        <div>
+          <div class="warning-box">
+            <strong>ProGain n’est pas pour toi si…</strong>
+            <ul style="list-style: none; margin-top: 10px; display: grid; gap: 6px;">
+              <li>Tu souffres d’une maladie grave (cardiaque, rénale, etc.)</li>
+              <li>Tu as une hypertension non contrôlée</li>
+              <li>Tu refuses de demander l’avis de ton médecin en cas de doute</li>
+            </ul>
+          </div>
+          <p style="margin-top: 12px; color: var(--text-muted);">En cas de traitement ou pathologie, demande toujours l’avis de ton médecin avant de prendre un complément.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Témoignages -->
+  <section class="section testimonials" id="temoignages">
+    <div class="container">
+      <h2 class="section-title">Ils ont décidé d’arrêter d’être trop maigres</h2>
+      <div class="testimonial-cards">
+        <div class="testimonial">
+          <div class="avatar">A</div>
+          <div>
+            <strong>Aïcha, 27 ans</strong>
+            <p>« En combinant ProGain avec une meilleure alimentation, j’ai enfin commencé à prendre du poids sans me sentir lourd. »</p>
+          </div>
+        </div>
+        <div class="testimonial">
+          <div class="avatar">M</div>
+          <div>
+            <strong>Michael, 32 ans</strong>
+            <p>« J’ai plus d’appétit et de l’énergie pour mes séances. Les résultats sont visibles sur mes bras et mes épaules. »</p>
+          </div>
+        </div>
+        <div class="testimonial">
+          <div class="avatar">S</div>
+          <div>
+            <strong>Sarah, 24 ans</strong>
+            <p>« Je voulais un produit naturel et simple. Après quelques semaines, je me sens plus en forme et j’ai pris du volume. »</p>
+          </div>
+        </div>
+      </div>
+      <div class="before-after">
+        <div class="ba-box">
+          <div class="placeholder"></div>
+          <p><strong>Avant</strong></p>
+        </div>
+        <div class="ba-box">
+          <div class="placeholder"></div>
+          <p><strong>Après</strong></p>
+        </div>
+      </div>
+      <p style="text-align: center; margin-top: 12px; color: var(--text-muted);">Résultats donnés à titre d’exemple. Chaque corps est différent.</p>
+    </div>
+  </section>
+
+  <!-- Section Utilisation -->
+  <section class="section usage" id="utilisation">
+    <div class="container">
+      <h2 class="section-title">Comment utiliser ProGain au quotidien ?</h2>
+      <div class="usage-steps">
+        <div style="display: flex; gap: 12px; align-items: center;">
+          <span style="font-size: 1.8rem;">💊</span>
+          <div>
+            <p><strong>1 capsule le matin après le petit-déjeuner</strong></p>
+            <p class="section-subtitle" style="margin: 6px 0 0; text-align: left;">Toujours accompagner d’un grand verre d’eau.</p>
+          </div>
+        </div>
+        <div style="display: flex; gap: 12px; align-items: center;">
+          <span style="font-size: 1.8rem;">💊</span>
+          <div>
+            <p><strong>1 capsule le soir après le dîner</strong></p>
+            <p class="section-subtitle" style="margin: 6px 0 0; text-align: left;">Soutient la récupération nocturne.</p>
+          </div>
+        </div>
+        <p style="color: var(--text-muted);">Ne pas dépasser la dose recommandée. Tenir hors de portée des enfants. Un complément alimentaire ne remplace pas une alimentation variée ni un traitement médical.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Offres -->
+  <section class="section pricing" id="offres">
+    <div class="container">
+      <h2 class="section-title">Choisis ton pack ProGain Nutrafrik</h2>
+      <div class="pricing-cards">
+        <div class="pricing-card">
+          <h3>Pack Découverte – 1 flacon</h3>
+          <p class="section-subtitle" style="text-align: left;">Idéal pour tester ProGain et commencer à voir les premières évolutions.</p>
+          <p class="old-price">39€</p>
+          <p class="price">29€</p>
+          <a class="btn-primary" href="#commande">Je choisis ce pack</a>
+        </div>
+        <div class="pricing-card">
+          <span class="badge">Le plus choisi</span>
+          <h3>Pack Résultats – 2 flacons</h3>
+          <p class="section-subtitle" style="text-align: left;">Permet un suivi sur plusieurs semaines pour des résultats plus visibles.</p>
+          <p class="old-price">68€</p>
+          <p class="price">54€</p>
+          <a class="btn-primary" href="#commande">Je choisis ce pack</a>
+        </div>
+        <div class="pricing-card">
+          <h3>Pack Transformation – 3 flacons</h3>
+          <p class="section-subtitle" style="text-align: left;">Recommandé pour un accompagnement complet dans le temps.</p>
+          <p class="old-price">99€</p>
+          <p class="price">75€</p>
+          <a class="btn-primary" href="#commande">Je choisis ce pack</a>
+        </div>
+      </div>
+      <div class="reassurance">
+        <span>💳 Paiement à la livraison</span>
+        <span>💬 Service client WhatsApp</span>
+        <span>⚡ Livraison rapide</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section FAQ -->
+  <section class="section faq" id="faq">
+    <div class="container">
+      <h2 class="section-title">Questions fréquentes</h2>
+      <details>
+        <summary>En combien de temps je verrai des résultats ?</summary>
+        <p style="margin-top: 10px; color: var(--text-muted);">Cela dépend de ton alimentation, de ton activité physique et de ton métabolisme. Beaucoup observent des changements progressifs sur plusieurs semaines.</p>
+      </details>
+      <details>
+        <summary>Est-ce que ProGain est pour les femmes aussi ?</summary>
+        <p style="margin-top: 10px; color: var(--text-muted);">Oui, ProGain convient aux hommes et aux femmes, en respectant les précautions d’usage.</p>
+      </details>
+      <details>
+        <summary>Est-ce que c’est un médicament ?</summary>
+        <p style="margin-top: 10px; color: var(--text-muted);">Non, ProGain est un complément alimentaire destiné à accompagner ton alimentation.</p>
+      </details>
+      <details>
+        <summary>Y a-t-il des effets secondaires ?</summary>
+        <p style="margin-top: 10px; color: var(--text-muted);">Chaque personne est différente. Respecte la posologie et consulte un médecin en cas de doute ou de réaction inattendue.</p>
+      </details>
+      <details>
+        <summary>Comment je commande si je n’ai pas de carte bancaire ?</summary>
+        <p style="margin-top: 10px; color: var(--text-muted);">Pas de souci : nous proposons le paiement à la livraison après confirmation par téléphone.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- Section Formulaire -->
+  <section class="section order-form-section" id="commande">
+    <div class="container">
+      <h2 class="section-title">Remplis ce formulaire, on te rappelle pour confirmer ta commande</h2>
+      <p class="section-subtitle">Remplis les informations ci-dessous. Notre équipe te contactera par téléphone ou WhatsApp pour confirmer ta commande et la livraison.</p>
+      <div class="form-card">
+        <form action="#" method="post">
+          <div>
+            <label for="nom">Nom complet</label>
+            <input type="text" id="nom" name="nom" placeholder="Ex : Jean K." required>
+          </div>
+          <div>
+            <label for="tel">Téléphone</label>
+            <input type="tel" id="tel" name="tel" placeholder="Ex : +225..." required>
+          </div>
+          <div>
+            <label for="pays">Pays</label>
+            <input type="text" id="pays" name="pays" placeholder="Ex : Côte d’Ivoire" required>
+          </div>
+          <div>
+            <label for="ville">Ville</label>
+            <input type="text" id="ville" name="ville" placeholder="Ex : Abidjan" required>
+          </div>
+          <div>
+            <label for="quartier">Quartier / commune</label>
+            <input type="text" id="quartier" name="quartier" placeholder="Ex : Cocody" required>
+          </div>
+          <div>
+            <label for="pack">Pack choisi</label>
+            <select id="pack" name="pack" required>
+              <option value="1 flacon">1 flacon</option>
+              <option value="2 flacons">2 flacons</option>
+              <option value="3 flacons">3 flacons</option>
+            </select>
+          </div>
+          <button type="submit" class="btn-primary" style="width: 100%;">Oui, je veux commencer ProGain</button>
+          <p class="confidential">Tes informations restent confidentielles. Nous ne les partageons pas avec des tiers.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-content">
+      <strong>ProGain – Nutrafrik</strong>
+      <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+        <a href="#">Mentions légales</a>
+        <a href="#">Politique de confidentialité</a>
+      </div>
+      <p style="color: rgba(255,255,255,0.85);">ProGain est un complément alimentaire. Il ne remplace pas un traitement médical ni l’avis d’un professionnel de santé.</p>
+    </div>
+  </footer>
+</body>
+</html>
